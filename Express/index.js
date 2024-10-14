@@ -1,7 +1,7 @@
 // directory creation
 //1. npm init
 //2. npm install express
-//3. nodemon -g (globally)
+//3. npm install nodemon -g (globally)
 
 const express = require("express");
 const app = express();

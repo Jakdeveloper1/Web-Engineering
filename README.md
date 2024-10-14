@@ -7,22 +7,21 @@ To get started with this project, follow these steps:
 
 # Clone the repository: 
 
-* git clone https://github.com/Jakdeveloper1/Web-Engineering.git *
+  git clone https://github.com/Jakdeveloper1/Web-Engineering.git
 
 # Navigate into the project directory:
-
-* cd Express*
+  
+  cd Express
 
 # Install dependencies:
-
-* npm install*
+  
+  npm install
 
 # start application (with node)
 
-* node index.js*
+  node index.js
 
 # start application (with nodemon)
 
-*
-npm install nodemon
-nodemon index.js*
+  npm install nodemon
+  nodemon index.js

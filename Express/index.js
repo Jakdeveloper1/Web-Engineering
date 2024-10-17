@@ -1,15 +1,52 @@
 // directory creation
 //1. npm init
 //2. npm install express
-//3. npm install nodemon -g (globally)
+//3. nodemon -g (globally)
 
 const express = require("express");
 const app = express();
 
-//Middleware to parse JSON
-app.use(express.json());
+//middleware function - JSON conversion to JS object
+app.use(express.json())
 
-app.get("/", (req, res) => {
+//Custom Middle ware 1
+const middleware1 = (req, res, next) => {
+  console.log("middleware 1");
+  console.log(`${req.method} ${req.path}`);
+  req.info = "This is my new information";
+  //req.method = "POST"
+  next();
+};
+
+//Custom Middleware 2
+const middleware2 = (req, res, next) => {
+  console.log("middleware 2");
+  console.log(`${req.method} ${req.path}`);
+  console.log(req.info);
+  next();
+};
+
+//Global middleware
+app.use(middleware1)
+app.use(middleware2)
+//Middleware 3
+app.use((req,res,next)=>{
+  console.log("middleware 3")
+  next()
+})
+
+//Route specific middleware (authentication)
+const auth = (req, res, next) => {
+  const { username, password } = req.body
+  console.log("this is my auth method");
+  if (username === "admin" && password === "admin") {
+    next();
+  } else {
+    res.send("User is not authenticated")
+  }
+};
+
+app.get("/", auth, (req, res) => {
   res.send("hello");
 });
 
@@ -40,6 +77,9 @@ let students = [
   },
 ];
 
+const studentRoute = require("./Route");
+app.use("/api", studentRoute);
+
 //HTTP POST request method
 app.post("/courseDetails", (req, res) => {
   console.log(students.length + 1);
@@ -59,7 +99,6 @@ app.put("/courses/:id", (req, res) => {
 
   if (idIndex !== -1) {
     //Success
-    //response is awaiting
     students[idIndex].name = req.body.name;
     res.send(students);
   } else {
@@ -71,18 +110,22 @@ app.put("/courses/:id", (req, res) => {
 //DELETE HTTP METHOD for deleting a student id
 // DELETE HTTP METHOD for deleting a student by id
 app.delete("/student/:id", (req, res) => {
-  const studentID = Number(req.params.id); 
-  const initialLength = students.length;   
+  const studentID = Number(req.params.id);
+  const initialLength = students.length;
 
-  students = students.filter(student => student.id !== studentID);
-  
+  students = students.filter((student) => student.id !== studentID);
+
   if (students.length === initialLength) {
-      return res.status(404).json({ message: 'Student not found' });
+    return res.status(404).json({ message: "Student not found" });
   }
 
   console.log("Remaining students:", students);
   res.status(200).json({ message: `Student with ID ${studentID} deleted` });
 });
 
+//Error handling middleware
+app.use((req, res) => {
+  res.status(404).send("No route existed");
+});
 
 app.listen(3000, () => console.log("Listening on port 3000"));

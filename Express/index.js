@@ -76,9 +76,13 @@ let students = [
     name: "Carry",
   },
 ];
-
+//(Route.js) for Route End Point
 const studentRoute = require("./Route");
 app.use("/api", studentRoute);
+
+// for specific users (SpecificUserRoute.js)
+const specificUser = require("./SpecificUserRoute");
+app.use("/api", specificUser);
 
 //HTTP POST request method
 app.post("/courseDetails", (req, res) => {

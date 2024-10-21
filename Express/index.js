@@ -5,9 +5,10 @@
 
 const express = require("express");
 const app = express();
+const jwt = require("jsonwebtoken");
 
 //middleware function - JSON conversion to JS object
-app.use(express.json())
+app.use(express.json());
 
 //Custom Middle ware 1
 const middleware1 = (req, res, next) => {
@@ -27,22 +28,22 @@ const middleware2 = (req, res, next) => {
 };
 
 //Global middleware
-app.use(middleware1)
-app.use(middleware2)
-//Middleware 3
-app.use((req,res,next)=>{
-  console.log("middleware 3")
-  next()
-})
+// app.use(middleware1)
+// app.use(middleware2)
+// //Middleware 3
+// app.use((req,res,next)=>{
+//   console.log("middleware 3")
+//   next()
+// })
 
 //Route specific middleware (authentication)
 const auth = (req, res, next) => {
-  const { username, password } = req.body
+  const { username, password } = req.body;
   console.log("this is my auth method");
   if (username === "admin" && password === "admin") {
     next();
   } else {
-    res.send("User is not authenticated")
+    res.send("User is not authenticated");
   }
 };
 
@@ -125,6 +126,107 @@ app.delete("/student/:id", (req, res) => {
 
   console.log("Remaining students:", students);
   res.status(200).json({ message: `Student with ID ${studentID} deleted` });
+});
+
+let Users = [
+  {
+    email: "admin@admin",
+    password: "admin",
+  },
+  {
+    email: "admin1@admin",
+    password: "admin1",
+  },
+];
+
+//JWT 
+app.post("/loginAuth", (req, res, next) => {
+  let { email, password } = req.body;
+  let existingUser = Users.find(
+    (u) => u.email == email && u.password == password
+  );
+  if (!existingUser) {
+    const error = Error("Wrong details please check at once");
+    res.status(401).json({
+      success: false,
+      error: error.message,
+    });
+  } else {
+    let token;
+    try {
+      //Creating jwt token
+      token = jwt.sign(
+        { email: existingUser.email, password: existingUser.password },
+        "123456789",
+        { expiresIn: "1h" }
+      );
+    } catch (err) {
+      console.log(err);
+      const error = new Error("Error! Something went wrong.");
+      next(error);
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        email: existingUser.email,
+        password: existingUser.password,
+        token: token,
+      },
+    });
+  }
+});
+
+
+const auth1 = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  if (!token) {
+    res.status(200).json({
+      success: false,
+      message: "Error! Token was not provided.",
+    });
+  }
+  //Decoding the token
+  try {
+    const decodedToken = jwt.verify(token, "123456789");
+    req.token = decodedToken;
+    next();
+  } catch (err) {
+    res.status(401).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+//Verification of JWT
+
+app.get("/accessResource",auth1, (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  if (!token) {
+    res.status(200).json({
+      success: false,
+      message: "Error! Token was not provided.",
+    });
+  }
+
+  jwt.verify(token, "123456789", (err, decodedToken) => {
+    if (decodedToken) {
+      req.token = decodedToken;
+      res.status(200).json({
+        success: true,
+        data: {
+          email: decodedToken.email,
+          password: decodedToken.password,
+        },
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        error: err.message,
+      });
+    }
+  });
 });
 
 //Error handling middleware

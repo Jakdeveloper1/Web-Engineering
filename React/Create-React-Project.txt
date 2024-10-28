@@ -1,0 +1,12 @@
+//Install node.js from the website
+
+//check commands
+$ node -v
+$ npm -v
+$ npx -v
+
+//create react app
+$ npx create-react-app myproject
+
+//run server
+$ npm start

@@ -1,7 +1,9 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import React from "react"
-import { Second } from './Components/Seconds';
+import  {Second}  from './Components/Seconds';
+import App from './Components/CounterApp';
+import { ToDoList } from './Components/ToDoList';
 
 function First()  {
 
@@ -10,21 +12,29 @@ function First()  {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {/* <img src={logo} className="App-logo"  /> */}
         <p>
           Edit <code>src/App.js name =  {name} </code> and save to reload.
         </p>
-        <a
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
       </header>
 
-      <Second/>
+      {/* <Second name="First" />
+      <Second name="Second"/>
+      <Second name="Third"/>
+
+      <App/> */}
+
+      <ToDoList/>
+
+
     </div>
     
   );

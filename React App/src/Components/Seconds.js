@@ -1,25 +1,18 @@
-import React from "react";
 
-export class Second extends React.Component  {
-    render(){
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+export const Second = ({name})=>{
   
-        
-      </div>
-    );
-  }}
-  
+
+  //conditional rendering
+  return(
+    <div className="App">
+    
+    {(name=="Second") ?
+      <p>this is my prop value : {name}</p>
+      :
+      <p>Nothing received</p>
+    }
+
+
+  </div>
+  )
+}

@@ -36,16 +36,21 @@ export default function Contact() {
 
         {contact.twitter && (
           <p>
+            {/* Server Side Routing */}
             <a
               target="_blank"
               href={`https://twitter.com/${contact.twitter}`}
             >
               {contact.twitter}
             </a>
+              {/* Server Side Routing */}
+
             <br/>
+               {/* Client Side Routing */}
             <Link to={'/contacts/1'}> This is my first link</Link>
             <br/>
             <Link to={'/contacts/2'}> This is my second link</Link>
+               {/* Client Side Routing */}
           </p>
         )}
 

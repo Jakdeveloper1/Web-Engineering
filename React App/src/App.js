@@ -1,17 +1,25 @@
 // import logo from './logo.svg';
 import './App.css';
-import React from "react"
+import React, { useEffect, useState } from "react"
 import  {Second}  from './Components/Seconds';
 import App from './Components/CounterApp';
 import { ToDoList } from './Components/ToDoList';
+import { Fetch } from './Components/fetchData';
+import { App1 } from './Components/FormData';
+import { Outlet } from 'react-router-dom';
 
-function First()  {
+function First () {
 
   var name = "Shehryar"
+
+  const [getName, setName] = useState("")
+
   
   return (
     <div className="App">
       <header className="App-header">
+        
+        
         {/* <img src={logo} className="App-logo"  /> */}
         <p>
           Edit <code>src/App.js name =  {name} </code> and save to reload.
@@ -29,18 +37,28 @@ function First()  {
       {/* <Second name="First" />
       <Second name="Second"/>
       <Second name="Third"/>
+*/}
 
-      <App/> */}
+      {/* <App/>  */}
 
-      <ToDoList/>
+        {/* <Test/> */}
 
+      {/* <Fetch/>
+
+      <App1 title = "Name" state ={getName}></App1>
+      <App1 title = "Roll No"></App1>
+      <App1 title = "Age"></App1>
+      <button onClick={{}}>Submit</button> */}
+
+      {/* <ToDoList/> */}
+
+      <Outlet/>
 
     </div>
     
   );
+
 }
-
-
 
 
 

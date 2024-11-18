@@ -6,32 +6,62 @@ import App  from './App';
 import reportWebVitals from './reportWebVitals';
 import ErrorPage from './Route/error';
 import Contact from './Route/contact';
+import { Test } from './Route/Test';
+import { MyParams } from './Route/myParams';
+
 
 // using React Routing  V6.4 or greater
-const Route = createBrowserRouter([
+
+
+const Route1 = createBrowserRouter([
   {
     path:"/",
     element:<App/>,
     errorElement: <ErrorPage/>,
     children:[
       {
-          path:"/home",
+          path:"/contact",
           element:<Contact/>
+          
       },
+      {
+        path:"/home",
+        element:<h3>This is my second child component</h3>
+      }
 
     ]
   },
   {
-    path:"/contacts/:1",
-    element:<Contact/>
+    path:"/test",
+    element:<Test/>,
+  },
+  {
+    path:"/test/:id",
+    element:<MyParams/>
   }
+  
 ])
 
+const Route2 = createBrowserRouter(
+  [
+    {
+      path:"/",
+      element:<h3>User not registered</h3>
+    },
+    {
+      path:"/contacts",
+      element:<h1>this is for the contacts component</h1>
+    }
+  ]
+)
+
+
+const auth = true
 //React Routing
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={Route}></RouterProvider>
+    <RouterProvider router={auth ? Route1 : Route2}></RouterProvider>
   </React.StrictMode>
 );
 

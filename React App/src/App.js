@@ -6,11 +6,12 @@ import App from './Components/CounterApp';
 import { ToDoList } from './Components/ToDoList';
 import { Fetch } from './Components/fetchData';
 import { App1 } from './Components/FormData';
-import { Outlet } from 'react-router-dom';
+import {  Link, Outlet } from 'react-router-dom';
 
 function First () {
 
   var name = "Shehryar"
+  const second = <Second/>
 
   const [getName, setName] = useState("")
 
@@ -33,7 +34,7 @@ function First () {
           Learn React
         </a> */}
       </header>
-
+          {/* {second} */}
       {/* <Second name="First" />
       <Second name="Second"/>
       <Second name="Third"/>
@@ -51,8 +52,11 @@ function First () {
       <button onClick={{}}>Submit</button> */}
 
       {/* <ToDoList/> */}
-
+      <Link to="/contact/:id">Contact component </Link>
+      <br/>
+      <Link to="/test">Load my Test links component</Link>
       <Outlet/>
+      
 
     </div>
     

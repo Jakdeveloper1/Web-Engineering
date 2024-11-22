@@ -8,6 +8,8 @@ import ErrorPage from './Route/error';
 import Contact from './Route/contact';
 import { Test } from './Route/Test';
 import { MyParams } from './Route/myParams';
+import { Main } from './Zustand/Main';
+import { Parent } from './ContextAPi/Parent';
 
 
 // using React Routing  V6.4 or greater
@@ -16,7 +18,7 @@ import { MyParams } from './Route/myParams';
 const Route1 = createBrowserRouter([
   {
     path:"/",
-    element:<App/>,
+    element:<Main/>,
     errorElement: <ErrorPage/>,
     children:[
       {

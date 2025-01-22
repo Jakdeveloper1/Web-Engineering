@@ -1,4 +1,4 @@
-import { Second } from "./Second"
+
 import { store } from "./store"
 
 

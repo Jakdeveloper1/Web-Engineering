@@ -10,7 +10,7 @@ export const Main = ()=>{
         <>
             <p>Counter: {count}</p>
             <button onClick={incremenetFunction}>Increment</button>
-            <Second/>
+            
         </>
     )
 }

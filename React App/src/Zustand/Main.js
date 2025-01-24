@@ -8,7 +8,7 @@ export const Main = ()=>{
     
     return(
         <>
-        </Second>
+       
             <p>Counter: {count}</p>
             <button onClick={incremenetFunction}>Increment</button>
             

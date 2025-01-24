@@ -10,7 +10,7 @@ export const Test = ()=>{
         },
         {
             id:2,
-            name:"Student 2"
+            name:"Student 200"
         }
     ]
     
